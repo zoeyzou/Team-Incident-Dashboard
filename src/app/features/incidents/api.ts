@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Incident } from "/api/types";
+import { Incident, User } from "/api/types";
 
 export const incidentsApi = createApi({
   reducerPath: "incidentsApi",
@@ -10,7 +10,15 @@ export const incidentsApi = createApi({
       query: () => "incidents",
       providesTags: ["Incident"],
     }),
+    getIncident: builder.query<Incident, string>({
+      query: (id) => `incidents/${id}`,
+      providesTags: (_result, _error, id) => [{ type: "Incident", id }],
+    }),
+    getUser: builder.query<User, string>({
+      query: (id) => `users/${id}`,
+    }),
   }),
 });
 
-export const { useGetIncidentsQuery } = incidentsApi;
+export const { useGetIncidentsQuery, useGetIncidentQuery, useGetUserQuery } =
+  incidentsApi;

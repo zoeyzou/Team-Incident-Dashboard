@@ -1,4 +1,5 @@
 import { Incident } from "/api/types";
+import Badge from "/ui/Badge";
 
 interface IncidentCardProps {
   incident: Incident;
@@ -6,19 +7,6 @@ interface IncidentCardProps {
 }
 
 const IncidentCard: React.FC<IncidentCardProps> = ({ incident, onClick }) => {
-  const severityColors: Record<Incident["severity"], string> = {
-    Low: "bg-green-100 text-green-800",
-    Medium: "bg-yellow-100 text-yellow-800",
-    High: "bg-orange-100 text-orange-800",
-    Critical: "bg-red-100 text-red-800",
-  };
-
-  const statusColors: Record<Incident["status"], string> = {
-    Open: "bg-blue-100 text-blue-800",
-    "In Progress": "bg-yellow-100 text-yellow-800",
-    Resolved: "bg-green-100 text-green-800",
-  };
-
   return (
     <article
       className="group bg-white border border-slate-200 hover:border-brand/50 hover:shadow-md rounded-lg p-4 sm:p-6 transition-all duration-200 cursor-pointer overflow-hidden"
@@ -28,16 +16,10 @@ const IncidentCard: React.FC<IncidentCardProps> = ({ incident, onClick }) => {
       onKeyDown={(e) => e.key === "Enter" && onClick(incident.id)}
     >
       <div className="flex items-start justify-between gap-3 mb-3">
-        <div
-          className={`px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-semibold ${severityColors[incident.severity]}`}
-        >
+        <Badge label={incident.severity}>
           {incident.severity.toUpperCase()}
-        </div>
-        <span
-          className={`px-2 py-1 text-[10px] sm:text-xs font-medium rounded-full ${statusColors[incident.status]}`}
-        >
-          {incident.status}
-        </span>
+        </Badge>
+        <Badge label={incident.status}>{incident.status}</Badge>
       </div>
 
       <h3 className="font-sans text-base sm:text-lg font-semibold text-slate-900 group-hover:text-brand mb-1.5 leading-snug sm:leading-tight tracking-tight">

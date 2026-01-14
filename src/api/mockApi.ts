@@ -184,6 +184,21 @@ const routes: Route[] = [
     },
   },
 
+  // GET /api/users/:id
+  {
+    method: "GET",
+    pattern: /^\/api\/users\/([^/]+)$/,
+    handler: async (params) => {
+      await delay(SIMULATED_DELAY);
+      const users = getUsers();
+      const user = users.find((u) => u.id === params.assigneeId);
+      if (!user) {
+        return errorResponse(`User with id "${params.id}" not found`, 404);
+      }
+      return jsonResponse(user);
+    },
+  },
+
   // POST /api/reset - Reset data to defaults (for testing)
   {
     method: "POST",
