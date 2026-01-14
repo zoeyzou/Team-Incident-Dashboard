@@ -4,6 +4,8 @@ A modern React + TypeScript dashboard for managing team incidents with real-time
 
 ## ✨ Features
 
+- Redux tool kit: an opinionated way of redux, it's more cleaner with duck structure, rationale refer to https://github.com/erikras/ducks-modular-redux
+
 - RTK Query - Type-safe API layer with optimistic updates & caching
 
 - React Router - Client-side navigation
@@ -17,8 +19,8 @@ A modern React + TypeScript dashboard for managing team incidents with real-time
 - Modern UX - Loading states, skeletons, smooth animations
 
 ## Demo
-[![Dashboard Demo](https://github.com/user-attachments/assets/125cc3a1-4e3b-4f10-9413-6a536d9a4de1)](https://github.com/user-attachments/assets/125cc3a1-4e3b-4f10-9413-6a536d9a4de1)
 
+[![Dashboard Demo](https://github.com/user-attachments/assets/125cc3a1-4e3b-4f10-9413-6a536d9a4de1)](https://github.com/user-attachments/assets/125cc3a1-4e3b-4f10-9413-6a536d9a4de1)
 
 ## Project Structure
 
