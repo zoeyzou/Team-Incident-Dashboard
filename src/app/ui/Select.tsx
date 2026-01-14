@@ -4,6 +4,7 @@ export type SelectOption<T> = {
 };
 
 interface SelectProps<T> {
+  name?: string;
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
@@ -12,6 +13,7 @@ interface SelectProps<T> {
 }
 
 const Select = <T,>({
+  name,
   value,
   onChange,
   placeholder = "Select...",
@@ -21,6 +23,7 @@ const Select = <T,>({
   <div className={`relative ${className}`}>
     {/* Dropdown arrow */}
     <select
+      name={name}
       disabled={options.length === 0}
       value={value}
       onChange={(e) =>

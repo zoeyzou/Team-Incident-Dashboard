@@ -5,11 +5,13 @@ export type ModalType = "incidentForm" | null;
 
 interface ModalState {
   type: ModalType;
+  title: string;
   props: Record<string, unknown>;
 }
 
 const initialState: ModalState = {
   type: null,
+  title: "",
   props: {},
 };
 

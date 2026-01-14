@@ -1,13 +1,19 @@
 import { Select } from "/ui/index";
 
 interface StatusSelectProps {
+  name?: string;
   value: string;
   onChange: (status: string) => void;
 }
 
-const StatusSelect: React.FC<StatusSelectProps> = ({ value, onChange }) => {
+const StatusSelect: React.FC<StatusSelectProps> = ({
+  name,
+  value,
+  onChange,
+}) => {
   return (
     <Select
+      name={name}
       value={value}
       onChange={onChange}
       options={[

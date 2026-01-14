@@ -49,31 +49,63 @@ export const incidentsApi = createApi({
       Incident,
       { id: string } & UpdateIncidentInput
     >({
-      query: ({ id, ...patch }) => ({
-        url: `incidents/${id}`,
-        method: "PATCH",
-        body: patch,
-      }),
-      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-        const { id, ...patch } = arg; // Destructure properly
+      queryFn: async ({ id, ...patch }) => {
+        const result = await fetch(`/api/incidents/${id}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(patch),
+        });
 
-        // Optimistic update
-        const patchResult = dispatch(
+        if (!result.ok) throw new Error("Server error");
+        const data = await result.json();
+
+        return { data };
+      },
+
+      async onQueryStarted({ id, ...patch }, { dispatch, queryFulfilled }) {
+        // ✅ Invalidate FIRST → forces network call
+        dispatch(incidentsApi.util.invalidateTags([{ type: "Incident", id }]));
+
+        // ✅ Optimistic update for instant UI
+        const optimisticPatch = dispatch(
           incidentsApi.util.updateQueryData(
             "getIncident",
             id,
             (draft: Incident) => {
-              Object.assign(draft, patch); // Type-safe merge
+              const now = new Date().toISOString();
+
+              // Match SERVER logic exactly
+              let statusHistory = draft.statusHistory;
+              if (patch.status && patch.status !== draft.status) {
+                statusHistory = [
+                  ...draft.statusHistory,
+                  {
+                    status: patch.status,
+                    changedAt: now,
+                    changedBy: "current-user",
+                  },
+                ];
+              }
+
+              // Exact server merge
+              Object.assign(draft, patch, {
+                updatedAt: now,
+                statusHistory,
+              });
             },
           ),
         );
 
         try {
-          await queryFulfilled; // Wait for server
-        } catch {
-          patchResult.undo(); // Rollback on failure
+          await queryFulfilled; // ← Now hits server + breakpoint!
+          console.log("✅ Server success, data synced");
+        } catch (error) {
+          console.error("❌ Server error:", error);
+          optimisticPatch.undo(); // Rollback only on real failure
         }
       },
+
+      // ✅ Refetch detail after success
       invalidatesTags: (_result, _error, { id }) => [{ type: "Incident", id }],
     }),
   }),

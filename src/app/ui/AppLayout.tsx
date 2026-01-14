@@ -1,3 +1,5 @@
+import { GlobalModal } from "/features/ui";
+
 const AppLayout = ({ children }: { children: React.ReactNode }) => (
   <div className="min-h-screen font-sans antialiased">
     {/* Fixed Danske Bank banner */}
@@ -13,6 +15,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => (
     <main className="bg-brand-muted pt-2 pb-12 px-4 sm:px-8">
       <div className="max-w-6xl mx-auto space-y-6">{children}</div>
     </main>
+    <GlobalModal />
   </div>
 );
 

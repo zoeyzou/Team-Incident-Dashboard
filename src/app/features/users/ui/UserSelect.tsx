@@ -2,11 +2,12 @@ import { useGetUsersQuery } from "../api";
 import { Select } from "/ui/index";
 
 interface UserSelectProps {
+  name?: string;
   value: string;
   onChange: (id: string) => void;
 }
 
-const UserSelect: React.FC<UserSelectProps> = ({ value, onChange }) => {
+const UserSelect: React.FC<UserSelectProps> = ({ name, value, onChange }) => {
   const { data: users = [], error } = useGetUsersQuery();
 
   if (error) {
@@ -20,6 +21,7 @@ const UserSelect: React.FC<UserSelectProps> = ({ value, onChange }) => {
 
   return (
     <Select
+      name={name}
       value={value}
       onChange={onChange}
       options={options}

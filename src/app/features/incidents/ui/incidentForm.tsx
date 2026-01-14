@@ -1,11 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "/ui/index";
 
-import {
-  useCreateIncidentMutation,
-  // useCreateIncidentMutation,
-  useUpdateIncidentMutation,
-} from "../api";
+import { useCreateIncidentMutation, useUpdateIncidentMutation } from "../api";
 import type {
   Incident,
   CreateIncidentInput,
@@ -20,14 +16,9 @@ import { UserSelect } from "/features/users/ui";
 interface IncidentFormProps {
   incident?: Incident | null; // Edit mode if provided
   onClose: () => void;
-  onSuccess?: () => void;
 }
 
-export const IncidentForm = ({
-  incident,
-  onClose,
-  onSuccess,
-}: IncidentFormProps) => {
+export const IncidentForm = ({ incident, onClose }: IncidentFormProps) => {
   const [formData, setFormData] = useState<UpdateIncidentInput>({
     title: "",
     description: "",
@@ -62,7 +53,6 @@ export const IncidentForm = ({
       } else {
         await create(formData as CreateIncidentInput).unwrap();
       }
-      onSuccess?.();
       onClose();
     } catch (error) {
       // RTK error toast
@@ -88,6 +78,7 @@ export const IncidentForm = ({
             Title *
           </label>
           <input
+            name="title"
             value={formData.title}
             onChange={(e) =>
               setFormData({ ...formData, title: e.target.value })
@@ -104,6 +95,7 @@ export const IncidentForm = ({
             Description *
           </label>
           <textarea
+            name="description"
             value={formData.description}
             onChange={(e) =>
               setFormData({ ...formData, description: e.target.value })
@@ -122,6 +114,7 @@ export const IncidentForm = ({
               Status
             </label>
             <StatusSelect
+              name="status"
               value={formData.status ?? ""}
               onChange={(status: string) =>
                 setFormData({ ...formData, status: status as IncidentStatus })
@@ -135,6 +128,7 @@ export const IncidentForm = ({
               Severity
             </label>
             <SeveritySelect
+              name="severity"
               value={formData.severity ?? ""}
               onChange={(severity: string) =>
                 setFormData({
@@ -152,6 +146,7 @@ export const IncidentForm = ({
             Assignee
           </label>
           <UserSelect
+            name="assigneeId"
             value={formData.assigneeId ?? ""}
             onChange={(assigneeId) => setFormData({ ...formData, assigneeId })}
           />
@@ -160,18 +155,12 @@ export const IncidentForm = ({
 
       {/* Actions */}
       <div className="flex gap-3 pt-6 border-t border-gray-100">
-        <Button
-          variant="secondary"
-          onClick={onClose}
-          disabled={isSubmitting}
-          // className="flex-1"
-        >
+        <Button variant="secondary" onClick={onClose} disabled={isSubmitting}>
           Cancel
         </Button>
         <Button
           onClick={handleSubmit}
           disabled={isSubmitting || !formData.title?.trim()}
-          // className="flex-1"
         >
           {isSubmitting
             ? "Saving..."

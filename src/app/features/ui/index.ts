@@ -6,3 +6,5 @@ export const uiReducer = combineReducers({
 });
 
 export type UiState = ReturnType<typeof uiReducer>;
+
+export { default as GlobalModal } from "./GlobalModal";

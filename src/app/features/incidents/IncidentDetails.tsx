@@ -4,13 +4,16 @@ import { useGetIncidentQuery } from "./api";
 import { useGetUserQuery } from "/features/users/api";
 import { skipToken } from "@reduxjs/toolkit/query";
 import { LoadingView } from "./ui";
-import { Badge } from "/ui/index";
+import { Badge, Button } from "/ui/index";
+import { useDispatch } from "react-redux";
+import { openModal } from "../ui/modalSlice";
 
 interface IncidentDetailProps {
   id: string;
 }
 
 const IncidentDetails = ({ id }: IncidentDetailProps) => {
+  const dispatch = useDispatch();
   const { data: incident, isLoading, error } = useGetIncidentQuery(id);
   const { data: assignee } = useGetUserQuery(
     incident?.assigneeId ?? skipToken,
@@ -18,6 +21,18 @@ const IncidentDetails = ({ id }: IncidentDetailProps) => {
       skip: !incident?.assigneeId, // Skip until needed
     },
   );
+
+  const handleEditClick = () => {
+    dispatch(
+      openModal({
+        type: "incidentForm",
+        props: {
+          title: "Edit incident",
+          incident, // pass current data to form
+        },
+      }),
+    );
+  };
 
   if (isLoading)
     return (
@@ -42,6 +57,9 @@ const IncidentDetails = ({ id }: IncidentDetailProps) => {
                 <span className="text-sm opacity-90">{incident.severity}</span>
               </div>
             </div>
+            <Button variant="secondary" size="md" onClick={handleEditClick}>
+              Edit incident
+            </Button>
           </div>
         </div>
 
