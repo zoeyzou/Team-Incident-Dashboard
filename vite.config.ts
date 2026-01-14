@@ -9,6 +9,8 @@ export default defineConfig({
   resolve: {
     alias: {
       "/api": path.resolve(__dirname, "./src/api"),
+      "/components": path.resolve(__dirname, "./src/app/components"),
+      "/pages": path.resolve(__dirname, "./src/app/pages"),
     },
   },
 });

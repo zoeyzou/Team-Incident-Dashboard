@@ -18,7 +18,9 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     "paths": {
-      "/api/*": ["./src/api/*"]
+      "/api/*": ["./src/api/*"],
+      "/components/*": ["./src/app/components/*"],
+      "/pages/*": ["./src/app/pages/*"]
     }
   },
   "include": ["src"]
