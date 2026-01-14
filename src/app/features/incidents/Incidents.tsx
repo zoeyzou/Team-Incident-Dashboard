@@ -3,7 +3,7 @@ import ErrorMessage from "/ui/ErrorMessage";
 import { useGetIncidentsQuery } from "./api";
 import { IncidentList, LoadingView } from "./ui";
 import { useState } from "react";
-import { type SelectOption, Input, SelectInput } from "/ui/index";
+import { type SelectOption, Input, Select } from "/ui/index";
 import {
   type Incident,
   type IncidentSeverity,
@@ -76,14 +76,14 @@ const Incidents = ({ onIncidentClick }: IncidentsProps) => {
             onChange={updateFilter("search")}
           />
 
-          <SelectInput
+          <Select
             value={filters.status}
             onChange={updateFilter("status")}
             options={statusOptions}
             placeholder="Filter by status"
           />
 
-          <SelectInput
+          <Select
             value={filters.severity}
             onChange={updateFilter("severity")}
             options={severityOptions}
