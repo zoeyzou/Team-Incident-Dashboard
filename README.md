@@ -6,6 +6,10 @@ A minimal React + TypeScript + Vite starter project for the coding challenge.
 
 ## Getting Started
 
+### Future improvement
+
+- Add React Compiler to do performance optimization
+
 ### Prerequisites
 
 - Node.js 18+
