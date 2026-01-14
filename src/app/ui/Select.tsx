@@ -21,6 +21,7 @@ const Select = <T,>({
   <div className={`relative ${className}`}>
     {/* Dropdown arrow */}
     <select
+      disabled={options.length === 0}
       value={value}
       onChange={(e) =>
         e.target.value === "all" ? onChange("") : onChange(e.target.value)

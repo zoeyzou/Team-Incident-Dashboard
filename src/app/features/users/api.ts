@@ -17,4 +17,4 @@ export const usersApi = createApi({
   }),
 });
 
-export const { useGetUserQuery } = usersApi;
+export const { useGetUserQuery, useGetUsersQuery } = usersApi;
