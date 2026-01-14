@@ -1,6 +1,7 @@
 // features/incidents/IncidentsList.tsx
 import ErrorMessage from "/ui/ErrorMessage";
-import { useGetIncidentQuery, useGetUserQuery } from "./api";
+import { useGetIncidentQuery } from "./api";
+import { useGetUserQuery } from "/features/users/api";
 import { skipToken } from "@reduxjs/toolkit/query";
 import { LoadingView } from "./ui";
 import { Badge } from "/ui/index";
