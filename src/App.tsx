@@ -1,10 +1,11 @@
-import "./App.css";
+import { IncidentsPage } from "/pages/Incidents";
+import { AppLayout } from "/ui/index";
 
 function App() {
   return (
-    <div className="app">
-      <h1>Team Incident Dashboard - Starter Project</h1>
-    </div>
+    <AppLayout>
+      <IncidentsPage />
+    </AppLayout>
   );
 }
 

@@ -19,8 +19,10 @@
     "noUncheckedSideEffectImports": true,
     "paths": {
       "/api/*": ["./src/api/*"],
-      "/components/*": ["./src/app/components/*"],
-      "/pages/*": ["./src/app/pages/*"]
+      "/features/*": ["./src/app/features/*"],
+      "/pages/*": ["./src/app/pages/*"],
+      "/store/*": ["./src/app/store/*"],
+      "/ui/*": ["./src/app/ui/*"]
     }
   },
   "include": ["src"]
