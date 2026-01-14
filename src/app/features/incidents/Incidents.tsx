@@ -3,7 +3,7 @@ import ErrorMessage from "/ui/ErrorMessage";
 import { useGetIncidentsQuery } from "./api";
 import { IncidentList, LoadingView } from "./ui";
 import { useState } from "react";
-import { type SelectOption, SearchInput, SelectInput } from "/ui/index";
+import { type SelectOption, Input, SelectInput } from "/ui/index";
 import {
   type Incident,
   type IncidentSeverity,
@@ -70,7 +70,7 @@ const Incidents = ({ onIncidentClick }: IncidentsProps) => {
       {/* Filters Row */}
       <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <SearchInput
+          <Input
             placeholder="Search by title..."
             value={filters.search}
             onChange={updateFilter("search")}

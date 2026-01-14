@@ -1,16 +1,16 @@
-interface SearchInputProps {
+interface InputProps {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
   className?: string;
 }
 
-const SearchInput = ({
+const Input = ({
   value,
   onChange,
   placeholder = "Search...",
   className = "",
-}: SearchInputProps) => {
+}: InputProps) => {
   const clearSearch = () => onChange("");
 
   return (
@@ -65,4 +65,4 @@ const SearchInput = ({
     </div>
   );
 };
-export default SearchInput;
+export default Input;
