@@ -10,6 +10,10 @@ import {
   type IncidentStatus,
 } from "/api/types";
 
+interface IncidentsProps {
+  onIncidentClick: (id: string) => void;
+}
+
 type Filters = {
   search: string;
   status: string;
@@ -46,7 +50,7 @@ const applyFilters = (incidents: Incident[], filters: Filters): Incident[] => {
   });
 };
 
-const Incidents = () => {
+const Incidents = ({ onIncidentClick }: IncidentsProps) => {
   const { data: rawIncidents, isLoading, error } = useGetIncidentsQuery();
   const [filters, setFilters] = useState<Filters>({
     search: "",
@@ -92,7 +96,7 @@ const Incidents = () => {
       {error && <ErrorMessage message="Failed to load incidents" />}
 
       {incidents && (
-        <IncidentList incidents={incidents} onIncidentClick={() => {}} />
+        <IncidentList incidents={incidents} onIncidentClick={onIncidentClick} />
       )}
     </div>
   );

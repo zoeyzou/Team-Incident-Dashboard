@@ -3,7 +3,7 @@ import { Incident } from "/api/types";
 
 interface IncidentListProps {
   incidents: Incident[];
-  onIncidentClick: (incident: Incident) => void;
+  onIncidentClick: (id: string) => void;
 }
 
 const IncidentList: React.FC<IncidentListProps> = ({
@@ -17,7 +17,7 @@ const IncidentList: React.FC<IncidentListProps> = ({
           <IncidentCard
             key={incident.id}
             incident={incident}
-            onClick={onIncidentClick}
+            onClick={() => onIncidentClick(incident.id)}
           />
         ))}
       </section>

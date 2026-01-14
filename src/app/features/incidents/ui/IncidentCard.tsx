@@ -2,7 +2,7 @@ import { Incident } from "/api/types";
 
 interface IncidentCardProps {
   incident: Incident;
-  onClick: (incident: Incident) => void;
+  onClick: (id: string) => void;
 }
 
 const IncidentCard: React.FC<IncidentCardProps> = ({ incident, onClick }) => {
@@ -22,10 +22,10 @@ const IncidentCard: React.FC<IncidentCardProps> = ({ incident, onClick }) => {
   return (
     <article
       className="group bg-white border border-slate-200 hover:border-brand/50 hover:shadow-md rounded-lg p-4 sm:p-6 transition-all duration-200 cursor-pointer overflow-hidden"
-      onClick={() => onClick(incident)}
+      onClick={() => onClick(incident.id)}
       role="button"
       tabIndex={0}
-      onKeyDown={(e) => e.key === "Enter" && onClick(incident)}
+      onKeyDown={(e) => e.key === "Enter" && onClick(incident.id)}
     >
       <div className="flex items-start justify-between gap-3 mb-3">
         <div

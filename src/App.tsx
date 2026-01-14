@@ -1,13 +1,14 @@
 import { Routes, Route } from "react-router";
-import { IncidentsPage } from "/pages/Incidents";
+import { Incidents, IncidentDetail } from "/pages/index";
 import { AppLayout } from "/ui/index";
 
 function App() {
   return (
     <AppLayout>
       <Routes>
-        <Route path="/" element={<IncidentsPage />} />
-        <Route path="/incidents" element={<IncidentsPage />} />
+        <Route path="/" element={<Incidents />} />
+        <Route path="/incidents" element={<Incidents />} />
+        <Route path="/incidents/:id" element={<IncidentDetail />} />
       </Routes>
     </AppLayout>
   );
