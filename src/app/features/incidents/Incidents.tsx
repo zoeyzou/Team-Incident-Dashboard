@@ -3,12 +3,9 @@ import ErrorMessage from "/ui/ErrorMessage";
 import { useGetIncidentsQuery } from "./api";
 import { IncidentList, LoadingView } from "./ui";
 import { useState } from "react";
-import { type SelectOption, Input, Select } from "/ui/index";
-import {
-  type Incident,
-  type IncidentSeverity,
-  type IncidentStatus,
-} from "/api/types";
+import { Input } from "/ui/index";
+import { type Incident } from "/api/types";
+import { StatusSelect, SeveritySelect } from "./ui/index";
 
 interface IncidentsProps {
   onIncidentClick: (id: string) => void;
@@ -19,18 +16,6 @@ type Filters = {
   status: string;
   severity: string;
 };
-
-const statusOptions: SelectOption<IncidentStatus>[] = [
-  { value: "Open", label: "Open" },
-  { value: "In Progress", label: "In Progress" },
-  { value: "Resolved", label: "Resolved" },
-];
-
-const severityOptions: SelectOption<IncidentSeverity>[] = [
-  { value: "Low", label: "Low" },
-  { value: "Medium", label: "Medium" },
-  { value: "High", label: "High" },
-];
 
 const applyFilters = (incidents: Incident[], filters: Filters): Incident[] => {
   return incidents.filter((incident) => {
@@ -75,19 +60,13 @@ const Incidents = ({ onIncidentClick }: IncidentsProps) => {
             value={filters.search}
             onChange={updateFilter("search")}
           />
-
-          <Select
+          <StatusSelect
             value={filters.status}
             onChange={updateFilter("status")}
-            options={statusOptions}
-            placeholder="Filter by status"
           />
-
-          <Select
+          <SeveritySelect
             value={filters.severity}
             onChange={updateFilter("severity")}
-            options={severityOptions}
-            placeholder="Filter by severity"
           />
         </div>
       </div>
