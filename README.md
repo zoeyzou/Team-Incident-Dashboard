@@ -16,6 +16,14 @@ A modern React + TypeScript dashboard for managing team incidents with real-time
 
 - Modern UX - Loading states, skeletons, smooth animations
 
+## Demo
+```
+<video src="https://github.com/user-attachments/assets/125cc3a1-4e3b-4f10-9413-6a536d9a4de1" width="720" height="480" controls>
+  Your browser does not support the video tag.
+</video>
+
+```
+
 ## Project Structure
 
 ```
