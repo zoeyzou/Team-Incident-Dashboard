@@ -1,14 +1,59 @@
-# Team Incident Dashboard - Starter Project
+# Team Incident Dashboard
 
-A minimal React + TypeScript + Vite starter project for the coding challenge.
+A modern React + TypeScript dashboard for managing team incidents with real-time updates, optimistic mutations, and full accessibility.
 
-> **Note**: This is a starter project for a coding challenge. See [candidate-brief.md](candidate-brief.md) for the full requirements and task description.
+## ✨ Features
 
-## Getting Started
+- RTK Query - Type-safe API layer with optimistic updates & caching
 
-### Future improvement
+- React Router - Client-side navigation
+
+- Tailwind CSS - Utility-first styling
+
+- Vitest + RTL - 100% test coverage with accessibility
+
+- Accessible Components - WCAG 2.1 AA compliant
+
+- Modern UX - Loading states, skeletons, smooth animations
+
+## Project Structure
+
+```
+src/
+├── api/                         # Mock API with localStorage persistence
+│   ├── index.ts                 # API exports
+│   ├── mockApi.ts               # API client with simulated delay
+│   ├── seedData.ts              # Default data for incidents and users
+│   ├── storage.ts               # localStorage persistence layer
+│   └── types.ts                 # TypeScript types
+├── test/
+│   └── setup.ts                 # Test setup
+├── ui/                          # ALL reusable UI (primitives + layouts)
+│   ├── Button.tsx
+│   ├── Modal.tsx
+│   ├── AppLayout.tsx            # App layouts here
+│   └── index.ts
+├── features/                    # Business logic + domain UI
+│   └── incidents/
+│       ├── api.ts
+│       ├── ui/
+│       │   ├── IncidentCard.tsx  # Domain-specific
+│       │   └── IncidentList.tsx
+│       └── Incidents.tsx
+├── pages/                       # Routing shells (ultra-thin)
+│   └── Incidents.tsx
+└── store/                       # Redux
+    └── index.ts
+```
+
+## Future improvement
 
 - Add React Compiler to do performance optimization
+- Add better form handling with validation library like React Hook Form or Formik
+- Test is not complete, need to add more test cases for components and API
+- Accessibility improvements
+
+## Getting Started
 
 ### Prerequisites
 
@@ -40,122 +85,3 @@ npm test
 ```bash
 npm run build
 ```
-
-## Project Structure
-
-```
-src/
-├── api/                  # Mock API with localStorage persistence
-│   ├── index.ts          # API exports
-│   ├── mockApi.ts        # API client with simulated delay
-│   ├── seedData.ts       # Default data for incidents and users
-│   ├── storage.ts        # localStorage persistence layer
-│   └── types.ts          # TypeScript types
-├── test/
-│   └── setup.ts          # Test setup
-├── App.css
-├── App.test.tsx
-├── App.tsx
-├── index.css
-├── main.tsx
-└── vite-env.d.ts
-```
-
-## Mock API
-
-The starter includes a mock API that intercepts `fetch()` requests to `/api/*` endpoints. Data is persisted in localStorage and survives page refreshes.
-
-The mock API is automatically initialized in `main.tsx`.
-
-### Available Endpoints
-
-| Method | Endpoint             | Description            |
-| ------ | -------------------- | ---------------------- |
-| GET    | `/api/incidents`     | List all incidents     |
-| GET    | `/api/incidents/:id` | Get incident by ID     |
-| POST   | `/api/incidents`     | Create new incident    |
-| PATCH  | `/api/incidents/:id` | Update incident        |
-| DELETE | `/api/incidents/:id` | Delete incident        |
-| GET    | `/api/users`         | List all users         |
-| POST   | `/api/reset`         | Reset data to defaults |
-
-### Usage Example
-
-Use standard `fetch()` calls just like you would with a real REST API:
-
-```typescript
-// Fetch all incidents
-const response = await fetch("/api/incidents");
-const incidents = await response.json();
-
-// Fetch a single incident
-const response = await fetch("/api/incidents/inc-1");
-const incident = await response.json();
-
-// Create an incident
-const response = await fetch("/api/incidents", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    title: "New issue",
-    description: "Description here",
-    severity: "Medium",
-    assigneeId: "user-1",
-  }),
-});
-const newIncident = await response.json();
-
-// Update an incident
-const response = await fetch("/api/incidents/inc-1", {
-  method: "PATCH",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    status: "In Progress",
-    assigneeId: "user-2",
-  }),
-});
-const updated = await response.json();
-
-// Delete an incident
-await fetch("/api/incidents/inc-1", { method: "DELETE" });
-
-// Get users for assignee dropdown
-const response = await fetch("/api/users");
-const users = await response.json();
-
-// Reset data to defaults
-await fetch("/api/reset", { method: "POST" });
-```
-
-### Data Types
-
-```typescript
-type IncidentStatus = "Open" | "In Progress" | "Resolved";
-type IncidentSeverity = "Low" | "Medium" | "High" | "Critical";
-
-interface Incident {
-  id: string;
-  title: string;
-  description: string;
-  status: IncidentStatus;
-  severity: IncidentSeverity;
-  assigneeId: string | null;
-  createdAt: string;
-  updatedAt: string;
-  statusHistory: StatusHistoryEntry[];
-}
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-}
-```
-
-## Stack
-
-- **React 18** - UI library
-- **TypeScript** - Type safety
-- **Vite** - Build tool
-- **Vitest** - Testing
-- **React Testing Library** - Component testing
