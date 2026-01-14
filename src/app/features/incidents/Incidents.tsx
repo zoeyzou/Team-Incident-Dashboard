@@ -56,6 +56,9 @@ const Incidents = ({ onIncidentClick }: IncidentsProps) => {
       <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <Input
+            id="incident-search"
+            label="Search by title"
+            name="search"
             placeholder="Search by title..."
             value={filters.search}
             onChange={updateFilter("search")}

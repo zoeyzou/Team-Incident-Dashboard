@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Button } from "/ui/index";
+import { Button, Input, TextArea } from "/ui/index";
 
 import { useCreateIncidentMutation, useUpdateIncidentMutation } from "../api";
 import type {
@@ -77,35 +77,33 @@ export const IncidentForm = ({ incident, onClose }: IncidentFormProps) => {
           <label className="block text-sm font-semibold text-gray-900 mb-2">
             Title *
           </label>
-          <input
+          <Input
+            id="incident-title"
             name="title"
-            value={formData.title}
-            onChange={(e) =>
-              setFormData({ ...formData, title: e.target.value })
+            value={formData.title ?? ""}
+            onChange={(value: string) =>
+              setFormData({ ...formData, title: value })
             }
-            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-brand"
             placeholder="Incident title"
+            label="Incident Title *" // ✅ Optional visible label
             required
+            // error={errors.title}   // Add if there is validation
           />
         </div>
 
         {/* Description */}
-        <div>
-          <label className="block text-sm font-semibold text-gray-900 mb-2">
-            Description *
-          </label>
-          <textarea
-            name="description"
-            value={formData.description}
-            onChange={(e) =>
-              setFormData({ ...formData, description: e.target.value })
-            }
-            rows={4}
-            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-brand resize-vertical"
-            placeholder="Describe the incident..."
-            required
-          />
-        </div>
+        <TextArea
+          label="Description"
+          id="incident-description"
+          name="description"
+          value={formData.description ?? ""}
+          onChange={(value: string) =>
+            setFormData({ ...formData, description: value })
+          }
+          placeholder="Describe the incident..."
+          required
+          helperText="Include timestamps, affected services, and impact"
+        />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Status */}

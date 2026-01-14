@@ -21,9 +21,11 @@ const Select = <T,>({
   className = "",
 }: SelectProps<T>) => (
   <div className={`relative ${className}`}>
-    {/* Dropdown arrow */}
+    {/* ✅ role="combobox" on SELECT (correct!) */}
     <select
+      id={name}
       name={name}
+      aria-label={placeholder} // ✅ Accessibility label
       disabled={options.length === 0}
       value={value}
       onChange={(e) =>
@@ -42,7 +44,6 @@ const Select = <T,>({
       ))}
     </select>
 
-    {/* Custom arrow */}
     <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
       <svg
         className="h-5 w-5 text-gray-400"

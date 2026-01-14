@@ -21,6 +21,9 @@ const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
 
   return (
     <div
+      role="dialog"
+      aria-modal="true"
+      aria-label="Modal"
       className="fixed inset-0 z-50 overflow-y-auto bg-black bg-opacity-50 flex items-center justify-center p-4 sm:p-8"
       onClick={onClose}
     >

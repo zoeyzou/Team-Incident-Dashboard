@@ -39,6 +39,7 @@ const Button = ({
 
   return (
     <button
+      type="button"
       className={`${baseStyles} ${variants[variant]} ${sizes[size]}`}
       onClick={onClick}
       disabled={disabled}

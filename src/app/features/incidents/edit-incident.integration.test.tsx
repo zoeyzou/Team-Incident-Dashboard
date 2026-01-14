@@ -9,31 +9,44 @@ import {
 import userEvent from "@testing-library/user-event";
 import { TestWrapper } from "../../../test/TestWrapper";
 import App from "../../../App";
+import { defaultIncidents, defaultUsers } from "/api/seedData";
 
 const customRender = (ui: React.ReactElement) =>
   render(ui, { wrapper: TestWrapper });
 
 // ✅ Mock RTK Query to avoid real API calls
-vi.mock("../src/features/incidents/store/incidentsApi", () => ({
-  incidentsApi: {
-    useGetIncidentsQuery: vi.fn(() => ({
-      data: [{ id: "1", title: "Test Incident", status: "Open" }],
-      isSuccess: true,
-    })),
-    useGetIncidentQuery: vi.fn(() => ({
+vi.mock("./api.ts", () => ({
+  useGetIncidentsQuery: vi.fn(() => ({
+    data: defaultIncidents,
+    isSuccess: true,
+  })),
+  useGetIncidentQuery: vi.fn(() => ({
+    data: defaultIncidents[0],
+    isSuccess: true,
+  })),
+  useUpdateIncidentMutation: vi.fn(() => [
+    vi.fn().mockResolvedValue({
       data: {
-        id: "1",
-        title: "Test Incident",
-        status: "Open",
-        statusHistory: [],
+        ...defaultIncidents[0],
+        status: "Resolved",
+        statusHistory: [
+          { ...defaultIncidents[0].statusHistory, status: "Resolved" },
+        ],
       },
-      isSuccess: true,
-    })),
-    useUpdateIncidentMutation: vi.fn(() => [
-      vi.fn().mockResolvedValue({ data: { id: "1", status: "Resolved" } }),
-      { isLoading: false },
-    ]),
-  },
+    }),
+    { isLoading: false },
+  ]),
+}));
+
+vi.mock("/features/users/api.ts", () => ({
+  useGetUsersQuery: vi.fn(() => ({
+    data: defaultUsers,
+    isSuccess: true,
+  })),
+  useGetUserQuery: vi.fn(() => ({
+    data: defaultUsers[0],
+    isSuccess: true,
+  })),
 }));
 
 describe("Edit Incident Integration", () => {
@@ -46,15 +59,21 @@ describe("Edit Incident Integration", () => {
 
     // ✅ Wait for list to load
     await waitFor(() => {
-      expect(screen.getByText("Test Incident")).toBeInTheDocument();
+      expect(
+        screen.getByText("Database connection timeout"),
+      ).toBeInTheDocument();
     });
 
     // 1. Click incident (find by title, not ID)
-    await userEvent.click(screen.getByText("Test Incident"));
+    await userEvent.click(screen.getByText("Database connection timeout"));
 
     // 2. Wait for detail
     await waitFor(() => {
-      expect(screen.getByText("Open")).toBeInTheDocument();
+      expect(
+        screen.getByText(
+          "The main database is experiencing intermittent connection timeouts affecting user authentication.",
+        ),
+      ).toBeInTheDocument();
     });
 
     // 3. Open modal
@@ -62,7 +81,9 @@ describe("Edit Incident Integration", () => {
     await waitFor(() => screen.getByRole("dialog"));
 
     // 4. Update status
-    const statusSelect = screen.getByRole("combobox");
+    const statusSelect = screen.getByRole("combobox", {
+      name: /Select status/i, // Matches aria-label
+    });
     await userEvent.selectOptions(statusSelect, "Resolved");
 
     // 5. Submit
