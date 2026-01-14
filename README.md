@@ -18,11 +18,17 @@ A modern React + TypeScript dashboard for managing team incidents with real-time
 
 ## Demo
 ```
-<video src="https://github.com/user-attachments/assets/125cc3a1-4e3b-4f10-9413-6a536d9a4de1" width="720" height="480" controls>
-  Your browser does not support the video tag.
+<video src="https://github.com/user-attachments/assets/125cc3a1-4e3b-4f10-9413-6a536d9a4de1" 
+       width="720" 
+       height="480" 
+       controls 
+       preload="metadata" 
+       loop>
+  Your browser does not support the <code>video</code> tag.
 </video>
 
 ```
+
 
 ## Project Structure
 
