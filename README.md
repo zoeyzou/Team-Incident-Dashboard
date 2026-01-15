@@ -54,6 +54,7 @@ src/
 
 ## Future improvement
 
+- Add global error handling and notification system
 - Add React Compiler to do performance optimization
 - Add better form handling with validation library like React Hook Form or Formik
 - Test is not complete, need to add more test cases for components and API
