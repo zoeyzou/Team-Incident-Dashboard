@@ -1,7 +1,7 @@
 // features/ui/modalSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export type ModalType = "incidentForm" | null;
+export type ModalType = "IncidentForm" | null;
 
 interface ModalState {
   type: ModalType;

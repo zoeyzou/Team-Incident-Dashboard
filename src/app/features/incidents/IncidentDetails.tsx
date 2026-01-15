@@ -25,7 +25,7 @@ const IncidentDetails = ({ id }: IncidentDetailProps) => {
   const handleEditClick = () => {
     dispatch(
       openModal({
-        type: "incidentForm",
+        type: "IncidentForm",
         props: {
           title: "Edit incident",
           incident, // pass current data to form
